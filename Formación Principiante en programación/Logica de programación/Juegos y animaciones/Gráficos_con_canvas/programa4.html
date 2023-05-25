@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4</title>
+</head>
+<body>
+    <h2>Programa 4</h2>
+    <hr>
+    <canvas width="600" height="400">
+
+    </canvas>
+    <script>
+        let screen = document.querySelector("canvas")
+        let brush = screen.getContext("2d")
+        brush.fillStyle = "lightgray";
+        brush.fillRect(0, 0, 600, 400);
+
+        function drawCircle(x,y,radio){            
+            brush.fillStyle = "blue"
+            brush.beginPath()
+            brush.arc(x,y,radio,0,2*Math.PI)
+            brush.fill()            
+        }     
+
+        function deleteCanvas(){
+            brush.clearRect(0,0,400, 300)
+        }
+
+        let x = 0
+        let y = 0
+        let mx = 1
+        let my = 1
+
+        function updateCanvas(){
+            deleteCanvas()
+            if (x + mx > 400 || x + mx < 0) {
+                mx = -mx; // Invierte la dirección horizontal al alcanzar los límites
+            }
+            if (y + my > 300 || y + my < 0) {
+                my = -my; // Invierte la dirección vertical al alcanzar los límites
+            }
+            drawCircle(x, y, 10);
+            x+=mx
+            y+=my
+           
+        }
+        setInterval(updateCanvas, 10);
+
+
+    </script>
+</body>
+</html>

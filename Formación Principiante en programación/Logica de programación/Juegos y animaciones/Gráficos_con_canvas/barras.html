@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uso de navegadores</title>
+</head>
+<body>
+    <h2>Estadística de browsers en 2009 y 2019</h2>
+    <hr>
+    <canvas width="600" height="400">
+
+    </canvas>
+    <script>
+        let screen = document.querySelector("canvas")
+        let brush = screen.getContext("2d")
+        brush.fillStyle = "lightgray";
+        brush.fillRect(0, 0, 600, 400);
+
+
+        function drawSquare(x, y, width, height,color){
+            brush.fillStyle = color         
+            brush.fillRect(x,y,width,height)
+            brush.strokeStyle = "black"
+            brush.strokeRect(x,y,width,height)     
+        }
+
+        function writeText(x , y, texto) {
+            brush.font="15px Georgia";
+            brush.fillStyle="black";
+            brush.fillText(texto, x, y);    
+        }
+               
+        function drawBar(x,y,barWidth,series,colors, text){
+            writeText(x,y-10,text)
+            
+            for (let i = 0; i < series.length; i++) {
+                let height = series[i]
+                drawSquare(x,y,barWidth,height,colors[i])
+                y+=height
+            }            
+        }
+        
+        
+        let y = 50 // coordenadas iniciales 
+        let x = 50 //
+        let barWidth = 50
+
+        let x2 = 150
+        let y2 = 50
+
+        let serie2009 = [6, 47, 41, 3, 3]
+        let serie2019 = [81, 9, 3, 3, 4]
+        let colors = ["blue","green","yellow", "red","gray"];
+
+        drawBar(x,y,barWidth,serie2009,colors,"2009")
+        drawBar(x2,y2,barWidth,serie2019,colors,"2019")
+
+    </script>
+</body>
+</html>

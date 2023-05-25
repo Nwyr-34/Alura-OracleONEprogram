@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P5</title>
+</head>
+<body>
+    <h2>Programa 5</h2>
+    <hr>
+    <canvas width="600" height="400">
+
+    </canvas>
+    <script>
+        let screen = document.querySelector("canvas")
+        let brush = screen.getContext("2d")
+        brush.fillStyle = "lightgray";
+        brush.fillRect(0, 0, 600, 400);
+
+        function drawCircle(x,y,radio,color){            
+            brush.fillStyle = color
+            brush.beginPath()
+            brush.arc(x,y,radio,0,2*Math.PI)
+            brush.fill()            
+        }     
+
+        function deleteCanvas(){
+            brush.clearRect(0,0,screen.width, screen.height)
+        }
+
+        let radio = 15
+
+        function drawTarget(x,y){
+            drawCircle(x,y,radio*3,"darkblue")
+            drawCircle(x,y,radio*2,"white")
+            drawCircle(x,y,radio,"darkblue")
+        }
+
+        // Notesé que también en este caso `min` será incluido y `max` excluido
+        function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        let targetX 
+        let targetY 
+
+        function updateCanvas(){
+            deleteCanvas()
+            targetX = getRandomArbitrary(radio*3,screen.width-(radio*3))
+            targetY = getRandomArbitrary(radio*3,screen.height-(radio*3))
+            drawTarget(targetX,targetY)
+           
+        }       
+
+        setInterval(updateCanvas,1000)
+
+        function shoot(event){
+            let x = event.pageX - screen.offsetLeft
+            let y = event.pageY - screen.offsetTop
+
+            if ((x < targetX + radio) &&
+                (x > targetX - radio) &&
+                (y < targetY + radio) &&
+                (y > targetY- radio)){
+                alert("Acerto")
+            }
+
+        }
+
+        screen.onclick = shoot
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creeper head</title>
+</head>
+<body>
+    <h2>Minecraft Creeper Head</h2>
+    <hr>
+    <canvas width="600" height="400">
+
+    </canvas>
+    <script>
+        let screen = document.querySelector("canvas")
+        let brush = screen.getContext("2d")
+        
+        /*
+        Rectángulo 1: 350, 300 (cabeza).
+        Rectángulos 2 y 3: 90, 90 (ojos).
+        Rectángulo 4: 70, 100 (nariz).
+        Rectángulos 5 y 6: 40, 110 (parte de la boca). 
+        Su canvas debe tener el tamaño de 600 x 400 pixeles.
+        */
+        brush.fillStyle = "#BDBDBD" //propiedad
+        brush.fillRect(0,0,screen.width,screen.height)
+
+        //Creeper head (rect 1)
+        const headWidth = 350;
+        const headHeight = 300;
+        const headX = (screen.width - headWidth) / 2; //125
+        const headY = (screen.height - headHeight) / 2;   //  50
+
+        brush.fillStyle = "#388E3C" 
+        brush.fillRect(headX, headY, headWidth, headHeight)
+
+        //Eyes
+        //Rec2 nad 3
+        const eyeWidth = 90;
+        const eyeHeight = 90;
+        const eye1X = headX + (headWidth / 2) - eyeWidth - 35; // 10 es el espacio entre los ojos
+        const eye1Y = headY + (headHeight / 2) - (eyeHeight );
+
+        const eye2X = headX + (headWidth / 2) + 35; // 10 es el espacio entre los ojos
+        const eye2Y = eye1Y;
+
+        //Nose rect 4
+
+        const noseWidth = 70;
+        const noseHeight = 100;
+        const noseX = headX + (headWidth - noseWidth) / 2;
+        const noseY = headY + (headHeight - noseHeight) / 2 + 50;
+
+        //Mouth rect 5 and 6 
+        const mouthTopWidth = 40;
+        const mouthTopHeight = 110;
+        const mouthTopX = headX + (headWidth / 2) - mouthTopWidth - 35;
+        const mouthTopY = headY + (headHeight + mouthTopHeight) / 2 - 15;
+
+        const mouthBottomWidth = 40;
+        const mouthBottomHeight = 110;
+        const mouthBottomX = headX + (headWidth  / 2  ) + 35;
+        const mouthBottomY = mouthTopY;
+
+        
+        brush.fillStyle = "black"
+        brush.fillRect(eye1X,eye1Y,eyeWidth,eyeHeight)
+        brush.fillRect(eye2X,eye2Y,eyeWidth,eyeHeight)
+        brush.fillRect(noseX,noseY,noseWidth,noseHeight)
+        brush.fillRect(mouthTopX,mouthTopY,mouthTopWidth,mouthTopHeight)
+        brush.fillRect(mouthBottomX,mouthBottomY,mouthBottomWidth,mouthBottomHeight)
+
+
+
+        
+    </script>
+</body>
+</html>

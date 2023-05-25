@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P6</title>
+</head>
+<body>
+    <h2>Mini Paint</h2>
+    <hr>
+    <canvas width="600" height="400">
+
+    </canvas>
+    <script>
+        var pantalla = document.querySelector('canvas');
+        var pincel = pantalla.getContext('2d');
+    
+        pincel.fillStyle = 'grey';
+        pincel.fillRect(0, 0, 600, 400);
+        
+        function dibujarCuadrado(x, y, area,color){
+            pincel.fillStyle = color         
+            pincel.fillRect(x,y,area,area)
+            pincel.strokeStyle = "black"
+            pincel.strokeRect(x,y,area,area)     
+        }
+
+        function dibujarPaleta(xInicio,yinicio,area,tintes){
+            for (let i = 0; i < colores.length; i++) {
+                dibujarCuadrado(xInicio,yinicio,area,tintes[i])
+                xInicio+=areaCuadrado            
+            }
+        }
+
+        let colores = ["blue","green","red","white","yellow","cyan"]
+        let paletaX = 0
+        let areaCuadrado = 50
+
+        dibujarPaleta(paletaX,0,areaCuadrado,colores)
+
+        var puedoDibujar = false;
+        var indiceColor = 0
+        var cantidadColores = colores.length //actualizar cada vez que se sume un color
+        var grosorPincel = 5
+
+        function dibujarCirculo(evento) {
+    
+            if(puedoDibujar) {
+                var x = evento.pageX - pantalla.offsetLeft;
+                var y = evento.pageY - pantalla.offsetTop;
+                pincel.fillStyle = colores[indiceColor];
+                pincel.beginPath();
+                pincel.arc(x, y, grosorPincel, 0, 2 * 3.14);
+                pincel.fill();
+
+                if ((x >= paletaX && x < (cantidadColores*areaCuadrado+grosorPincel)) && 
+                    (y >=0 && y < (areaCuadrado+grosorPincel))) {
+                    puedoDibujar = false
+                }
+                
+            }
+    
+        }
+    
+        pantalla.onmousemove = dibujarCirculo;
+    
+        function habilitarDibujar() {
+    
+            puedoDibujar = true;
+        }
+    
+        function deshabilitarDibujar() {
+    
+            puedoDibujar = false;
+        }
+    
+        pantalla.onmousedown = habilitarDibujar;    
+        pantalla.onmouseup = deshabilitarDibujar;
+        
+        function cambiarColor(evento) {
+        var x = evento.pageX - pantalla.offsetLeft;
+        var y = evento.pageY - pantalla.offsetTop;
+
+            for (var i = 0; i < cantidadColores; i++) {
+                if (x > areaCuadrado * i && x < areaCuadrado * (i + 1) &&
+                    y > 0 && y < areaCuadrado) {
+                    indiceColor = i;
+                    break; // Se detiene el bucle una vez que se encuentra el área correspondiente
+                }
+            }
+        }
+
+
+        pantalla.onclick = cambiarColor
+        
+
+
+    </script>
+</body>
+</html>

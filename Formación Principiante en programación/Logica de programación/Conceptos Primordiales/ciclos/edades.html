@@ -1,0 +1,31 @@
+<h2>PROMEDIO DE EDADES</h2>
+
+<body>
+<script>
+function saltarlinea(){
+    document.write("<br>");
+    document.write("<br>");
+    document.write("<hr>");
+    document.write("<br>");
+}
+
+function imprimir(frase){
+    document.write(frase);
+    saltarlinea()
+
+}
+
+let numMembers = parseInt(prompt("Ingrese Nro de miembros de familia"))
+let i = 1
+let totalAges = 0
+while(i <= numMembers){
+    let memberAge = parseInt(prompt("Ingrese edad del familiar: ")) 
+    totalAges += memberAge
+    i++
+}
+let avg = totalAges/numMembers
+imprimir("Promedio de edades: "+ avg)
+
+
+</script>
+</body>
